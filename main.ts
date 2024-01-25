@@ -25,9 +25,6 @@ function player_1 () {
     )
     mySprite.setPosition(5, 130)
 }
-function real_control (bool: boolean) {
-	
-}
 function player_2 () {
     mySprite = sprites.create(img`
         . . . . 2 2 2 2 2 e . . . . . . 
@@ -55,6 +52,50 @@ function player_2 () {
     )
     mySprite.setPosition(5, 100)
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, otherSprite) {
+    sprites.destroy(otherSprite, effects.fire, 100)
+    footballer = sprites.create(img`
+        . . . . 2 2 2 2 2 e . . . . . . 
+        . . . 2 2 2 2 d 2 2 e . . . . . 
+        . . e 2 2 2 2 2 2 2 e . . . . . 
+        . . e 2 2 2 2 2 2 2 e . . . . . 
+        . . e 2 2 2 2 2 e f f c c . . . 
+        . . e e 2 2 e f f f f b c . . . 
+        . e e e f e 2 b f f f d c . . . 
+        e e 2 2 d f 2 e f f f b c . . . 
+        e e 2 2 d f e c b 4 4 c . . . . 
+        b 1 1 d e e c 4 1 1 4 c . . . . 
+        . f f e e e e 4 4 4 4 c . . . . 
+        . . f f d d e 4 4 4 b c . . . . 
+        . . f f d d e c c c c d . . . . 
+        . . . f f f f . . . . . . . . . 
+        . . f f f e e e . . . . . . . . 
+        . . f f f f e e e . . . . . . . 
+        `, SpriteKind.Player)
+    animation.runImageAnimation(
+    footballer,
+    [img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `],
+    500,
+    true
+    )
+})
 function player_3 () {
     mySprite = sprites.create(img`
         . . . . 2 2 2 2 2 e . . . . . . 
@@ -82,9 +123,6 @@ function player_3 () {
     )
     mySprite.setPosition(5, 70)
 }
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherSprite) {
-	
-})
 function real_player () {
     football = sprites.create(img`
         . . . . . . . . . . 
@@ -100,12 +138,12 @@ function real_player () {
         `, SpriteKind.Player)
     tiles.placeOnRandomTile(football, assets.tile`myTile3`)
     scene.cameraFollowSprite(football)
-    controller.moveSprite(football)
 }
 let football: Sprite = null
+let footballer: Sprite = null
 let mySprite: Sprite = null
 tiles.setCurrentTilemap(tilemap`level`)
-real_player()
 player_1()
 player_2()
 player_3()
+real_player()
